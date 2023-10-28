@@ -1,0 +1,6 @@
+.snake {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #A10000;
+}

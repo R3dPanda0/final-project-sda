@@ -1,0 +1,50 @@
+.navbar {
+    background-color: #282C34;
+    width: 100%;
+    height: 60px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.pages {
+    & ul {
+        list-style-type: none;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin: 0px;
+        height: 60px;
+        font-weight: bolder;
+        & a {
+            text-decoration: none;
+            color: #A10000;
+        }
+        & li {
+            padding: 19px 10px;
+            
+        }
+        & li:hover {
+            background-color: #A3ABBD;
+            transition: 0.5s;
+        }
+    }
+}
+
+.switch {
+    margin-left: 7px;
+}
+
+.logo {
+    padding-right: 70px;
+    & img{
+        width: 80px;
+        height: 40px;
+    }
+}
+
+.account {
+    display: flex;
+    flex-direction: row;
+    padding: 10px 40px 0px 0px;
+}

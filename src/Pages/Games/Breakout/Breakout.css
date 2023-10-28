@@ -1,0 +1,31 @@
+.breakout {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    color: #ffffff;
+    & .description-container {
+        border: 1px solid black;
+        width: 1243px;
+        background-color: #A3ABBD;
+        color: black;
+        & .title {
+            display: flex;
+            justify-content: space-between;
+            margin: 0px 40px 0px 40px;
+        }
+        & .description {
+            text-align: center;
+            margin: 0px 20px 30px 20px;
+        }
+    }
+}
+
+#canvas {
+    background-color: rgba(19, 73, 89, 0.7);
+}
+  
+.gameHeader {
+    font-family: "Sedgwick Ave", cursive;
+    font-size: 40px;
+    color: #A10000;
+}

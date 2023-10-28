@@ -1,0 +1,18 @@
+.card {
+    margin: 0px 50px 20px 50px;
+    text-align: center;
+}
+
+.card-content {
+    & img {
+        height: 180px;
+        width: 300px;
+        border-radius: 25px;
+        border: 1px solid #A10000;
+    }
+    & img:hover {
+        border-radius: 0px;
+        transform: scale(1.1);
+        transition: 0.2s;
+    }
+}
