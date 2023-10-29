@@ -5,7 +5,7 @@
     color: #ffffff;
     & .description-container {
         border: 1px solid black;
-        width: 1243px;
+        width: 1119px;
         background-color: #A3ABBD;
         color: black;
         & .title {
@@ -14,8 +14,22 @@
             margin: 0px 40px 0px 40px;
         }
         & .description {
-            text-align: center;
+            text-align: left;
             margin: 0px 20px 30px 20px;
+        }
+    }
+    & .challenges {
+        width: 1119px;
+        & h2 {
+            text-align: center;
+            color: black;
+        }
+    }
+    & .leaderboard {
+        width: 1119px;
+        & h2 {
+            text-align: center;
+            color: black;
         }
     }
 }

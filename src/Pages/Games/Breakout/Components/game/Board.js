@@ -19,6 +19,14 @@ let inPause = 1;
 export default function Board() {
   const canvasRef = useRef(null);
 
+  const currentBestScore = localStorage.getItem("Breakout Best Score");
+
+  const [score, setScore] = React.useState(currentBestScore);
+
+  React.useEffect(() => {
+    localStorage.setItem('Breakout Best Score', score);
+  }, [score]);
+
   useEffect(() => {
     const render = () => {
     if(inMenu === 0)
@@ -61,6 +69,11 @@ export default function Board() {
       AllBroken(bricks, player, canvas, ballObj);
 
       if (player.lives === 0) {
+        const currentScore = player.score;
+        const bestScore = localStorage.getItem("Breakout Best Score");
+        if(currentScore > bestScore) {
+          setScore(currentScore);
+        }
         inMenu = 1;
         player.lives = 5;
         player.level = 1;

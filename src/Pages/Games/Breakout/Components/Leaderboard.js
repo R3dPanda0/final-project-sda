@@ -7,15 +7,20 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 
-function createData(name, score, level) {
-  return { name, score, level };
-}
+import data from './util/data';
 
-const rows = [
-  createData('RedPanda', 159, 50),
-];
+export default function Leaderboard() {
 
-export default function BasicTable() {
+  const currentScore = localStorage.getItem("Breakout Best Score");
+
+  const [score, setScore] = React.useState(currentScore);
+
+  React.useEffect(() => {
+    setInterval(() => {
+      setScore(localStorage.getItem("Breakout Best Score"))
+    }, 3000);
+  }, [])
+
   return (
     <TableContainer component={Paper}>
       <Table sx={{ minWidth: 650 }} aria-label="simple table">
@@ -27,18 +32,16 @@ export default function BasicTable() {
           </TableRow>
         </TableHead>
         <TableBody>
-          {rows.map((row) => (
             <TableRow
-              key={row.name}
+              key={data.player.name}
               sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
             >
               <TableCell component="th" scope="row">
-                {row.name}
+                {data.player.name}
               </TableCell>
-              <TableCell align="right">{row.score}</TableCell>
-              <TableCell align="right">{row.level}</TableCell>
+              <TableCell align="right">{score}</TableCell>
+              <TableCell align="right">50</TableCell>
             </TableRow>
-          ))}
         </TableBody>
       </Table>
     </TableContainer>

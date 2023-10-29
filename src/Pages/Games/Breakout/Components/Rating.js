@@ -3,8 +3,11 @@ import Box from '@mui/material/Box';
 import Rating from '@mui/material/Rating';
 import Typography from '@mui/material/Typography';
 
-export default function BasicRating() {
-  const [value, setValue] = React.useState<number | null>(2);
+export default function RatingStars() {
+
+  const [value, setValue] = React.useState(localStorage.getItem("Breakout Rating"));
+
+  localStorage.setItem("Breakout Rating", value);
 
   return (
     <Box
@@ -12,12 +15,12 @@ export default function BasicRating() {
         '& > legend': { mt: 2 },
       }}
     >
-    <Typography component="legend">Controlled</Typography>
-    <Rating
+      <Typography component="legend">Rate the game:</Typography>
+      <Rating
         name="simple-controlled"
-        value={value}
+        value={Number(value)}
         onChange={(event, newValue) => {
-        setValue(newValue);
+          setValue(newValue);
         }}
       />
     </Box>
