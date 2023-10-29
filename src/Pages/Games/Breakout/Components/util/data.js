@@ -1,7 +1,7 @@
 let data = {
     ballObj: {
-      x: 20,
-      y: 200,
+      x: 600,
+      y: 430,
       dx: 4,
       dy: 4,
       rad: 10,

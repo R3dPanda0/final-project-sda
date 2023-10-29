@@ -12,11 +12,17 @@ import ResetBall from "../util/ResetBall";
 
 let bricks = [];
 let { ballObj, paddleProps, brickObj, player } = data;
+
+let inMenu = 1;
+let inPause = 1;
+
 export default function Board() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const render = () => {
+    if(inMenu === 0)
+    {
       const canvas = canvasRef.current;
       const ctx = canvas.getContext("2d");
       paddleProps.y = canvas.height - 30;
@@ -37,14 +43,25 @@ export default function Board() {
       });
 
       // Handle Ball Movement
-      BallMovement(ctx, ballObj);
+      if(inPause === 0) {
+        BallMovement(ctx, ballObj);
+      }
 
+      if(inPause === 1) {
+        BallMovement(ctx, ballObj);
+        ballObj.x = 600;
+        ballObj.y = 430;
+      }
+
+      canvas.addEventListener('click', function() {
+        inPause = 0;
+      }, false);
+      
       // Check all broken
       AllBroken(bricks, player, canvas, ballObj);
 
       if (player.lives === 0) {
-        alert("Game Over! Press ok to restart");
-
+        inMenu = 1;
         player.lives = 5;
         player.level = 1;
         player.score = 0;
@@ -78,9 +95,30 @@ export default function Board() {
       PaddleHit(ballObj, paddleProps);
 
       requestAnimationFrame(render);
-    };
-    render();
-  }, []);
+    }
+    else if(inMenu === 1) {
+      const canvas = canvasRef.current;
+      const ctx = canvas.getContext("2d");
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.font = "50px Arial";
+      ctx.fillText("Breakout", 600, 100);
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center";
+
+      ctx.font = "40px Arial";
+      ctx.fillText("Click to Play", 600, 300);
+      ctx.fillStyle = "black";
+      ctx.textAlign = "center";
+
+      canvas.addEventListener('click', function() {
+        inMenu = 0;
+      }, false);
+
+      requestAnimationFrame(render);
+    }
+  }
+  render();
+}, []);
 
   return (
     <div style={{ textAlign: "center" }}>
