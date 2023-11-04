@@ -15,6 +15,7 @@ let { ballObj, paddleProps, brickObj, player } = data;
 
 let inMenu = 1;
 let inPause = 1;
+let showStartText = 0;
 
 export default function Board() {
   const canvasRef = useRef(null);
@@ -53,12 +54,20 @@ export default function Board() {
       // Handle Ball Movement
       if(inPause === 0) {
         BallMovement(ctx, ballObj);
+        showStartText = 0;
       }
 
       if(inPause === 1) {
         BallMovement(ctx, ballObj);
         ballObj.x = 600;
         ballObj.y = 430;
+        if (showStartText === 1)
+        {
+          ctx.font = "40px Arial";
+          ctx.fillText("Click to Start", 550, 300);
+          ctx.fillStyle = "black";
+          ctx.textAlign = "center";
+        }
       }
 
       canvas.addEventListener('click', function() {
@@ -69,11 +78,12 @@ export default function Board() {
       AllBroken(bricks, player, canvas, ballObj);
 
       if (player.lives === 0) {
-        const currentScore = player.score;
+        let currentScore = player.score;
         const bestScore = localStorage.getItem("Breakout Best Score");
         if(currentScore > bestScore) {
           setScore(currentScore);
         }
+        localStorage.setItem(`Player Progress`, currentScore);
         inMenu = 1;
         player.lives = 5;
         player.level = 1;
@@ -114,17 +124,18 @@ export default function Board() {
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height);
       ctx.font = "50px Arial";
-      ctx.fillText("Breakout", 600, 100);
+      ctx.fillText("Breakout", 550, 100);
       ctx.fillStyle = "black";
       ctx.textAlign = "center";
 
       ctx.font = "40px Arial";
-      ctx.fillText("Click to Play", 600, 300);
+      ctx.fillText("Click to Play", 550, 300);
       ctx.fillStyle = "black";
       ctx.textAlign = "center";
 
       canvas.addEventListener('click', function() {
         inMenu = 0;
+        showStartText = 1;
       }, false);
 
       requestAnimationFrame(render);

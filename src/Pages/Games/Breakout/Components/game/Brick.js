@@ -16,7 +16,6 @@ export default function Brick(level, bricks, canvas, brick) {
       brick.y,
       brick.width,
       brick.height,
-      brick.colors
     );
     newbricks.push(newBrick);
     // newBrick.draw();
@@ -30,21 +29,22 @@ export default function Brick(level, bricks, canvas, brick) {
 }
 
 class SingleBrick {
-  constructor(x, y, w, h, c) {
+  constructor(x, y, w, h) {
     this.x = x - w;
     this.y = y;
     this.width = w;
     this.height = h;
-    this.colors = c;
     this.broke = false;
-  }
+  } 
   draw(ctx) {
+    const grd = ctx.createLinearGradient(220, 190, 210, 0);
+    grd.addColorStop(0, "red");
+    grd.addColorStop(1, "black");
     ctx.beginPath();
     ctx.rect(this.x, this.y, this.width, this.height);
-    ctx.fillStyle = this.broke ? "rgba(19, 73, 89, 0)" : this.colors[1];
-
-    ctx.lineWidth = 5;
-    ctx.strokeStyle = this.broke ? "rgba(19, 73, 89, 0)" : "transparent";
+    ctx.fillStyle = this.broke ? "rgba(19, 73, 89, 0)" : grd;
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = this.broke ? "rgba(19, 73, 89, 0)" : "black";
     // ctx.globalCompositeOperation = "destination-atop";
     // ctx.shadowBlur = 0;
     // ctx.shadowColor = "blue";

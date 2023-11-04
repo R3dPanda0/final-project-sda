@@ -11,7 +11,7 @@ export default function Paddle (ctx, canvas, paddleProps) {
       ctx.beginPath();
       ctx.rect(this.x, this.y, this.width, this.height);
       ctx.fillStyle = this.broke ? "white" : this.colors[1];
-      ctx.strokeStyle = this.broke ? "white" : "red";
+      ctx.strokeStyle = this.broke ? "white" : "black";
       ctx.lineWidth = 1;
       ctx.fillStyle = this.broke ? "white" : this.colors[1];
       ctx.shadowBlur = 0;

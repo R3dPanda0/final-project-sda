@@ -1,7 +1,8 @@
 import * as React from 'react';
+import { styled } from '@mui/material/styles';
 import Table from '@mui/material/Table';
 import TableBody from '@mui/material/TableBody';
-import TableCell from '@mui/material/TableCell';
+import TableCell, { tableCellClasses } from '@mui/material/TableCell';
 import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
@@ -9,11 +10,33 @@ import Paper from '@mui/material/Paper';
 
 import data from './util/data';
 
+const StyledTableCell = styled(TableCell)(({ theme }) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.common.black,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 14,
+  },
+}));
+
+const StyledTableRow = styled(TableRow)(({ theme }) => ({
+  '&:nth-of-type(odd)': {
+    backgroundColor: theme.palette.action.hover,
+  },
+  // hide last border
+  '&:last-child td, &:last-child th': {
+    border: 0,
+  },
+}));
+
 export default function Leaderboard() {
 
   const currentScore = localStorage.getItem("Breakout Best Score");
+  const currentLevel = localStorage.getItem("Player Level");
 
   const [score, setScore] = React.useState(currentScore);
+  const [level, setLevel] = React.useState(currentLevel);
 
   React.useEffect(() => {
     setInterval(() => {
@@ -21,29 +44,33 @@ export default function Leaderboard() {
     }, 3000);
   }, [])
 
+  React.useEffect(() => {
+    setInterval(() => {
+      setLevel(localStorage.getItem("Player Level"))
+    }, 1000);
+  }, [])
+
   return (
     <TableContainer component={Paper}>
-      <Table sx={{ minWidth: 650 }} aria-label="simple table">
+      <Table sx={{ minWidth: 700 }} aria-label="customized table">
         <TableHead>
           <TableRow>
-            <TableCell>Name</TableCell>
-            <TableCell align="right">Score</TableCell>
-            <TableCell align="right">Account Level</TableCell>
+            <StyledTableCell>Name</StyledTableCell>
+            <StyledTableCell align="right">Score</StyledTableCell>
+            <StyledTableCell align="right">Account Level</StyledTableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-            <TableRow
-              key={data.player.name}
-              sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
-            >
-              <TableCell component="th" scope="row">
-                {data.player.name}
-              </TableCell>
-              <TableCell align="right">{score}</TableCell>
-              <TableCell align="right">50</TableCell>
-            </TableRow>
+            <StyledTableRow key={data.player.name}>
+              <StyledTableCell component="th" scope="row">
+              {data.player.name}
+              </StyledTableCell>
+              <StyledTableCell align="right">{score}</StyledTableCell>
+              <StyledTableCell align="right">{level}</StyledTableCell>
+            </StyledTableRow>
         </TableBody>
       </Table>
     </TableContainer>
+
   );
 }

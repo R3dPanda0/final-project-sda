@@ -2,23 +2,25 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import LinearProgress from '@mui/material/LinearProgress';
 import './Levelbar.css';
-import data from '../../Pages/Games/Breakout/Components/util/data';
 
 const LinearDeterminate = (
 
 ) => {
-const [progress, setProgress] = React.useState(0);
+  const [progress, setProgress] = React.useState(0);
 
   React.useEffect(() => {
     const timer = setInterval(() => {
+      const level = Number(localStorage.getItem(`Player Level`));
       setProgress((oldProgress) => {
-        const xp = data.player.score;
-        if (oldProgress === 100) {
+        const xp = Number(localStorage.getItem(`Player Xp`));
+        if (oldProgress >= 100) {
+          localStorage.setItem(`Player Xp`, 0);
+          localStorage.setItem(`Player Level`, level+1);
           return 0;
         }
         return xp;
       });
-    }, 500);
+    }, 1000);
 
     return () => {
       clearInterval(timer);

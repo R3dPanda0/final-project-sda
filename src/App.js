@@ -16,7 +16,6 @@ import Footer from './Components/Footer/Footer';
 
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-
 function App() {
 
   const navLink = [
